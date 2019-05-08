@@ -6,12 +6,11 @@ Created on Sat Feb 16 17:23:28 2019
 """
 
 import pandas as pd
-import os
+from os import chdir, listdir, getcwd
 from xlrd import XLRDError
 
 
-
-
+og_dir = getcwd()
 
 # to change path to user's desktop
 while True:
@@ -22,7 +21,7 @@ while True:
         name = name.lower()
         # corrects for capitalization
         
-        os.chdir(f'c:/users/{name}/desktop')
+        chdir(f'c:/users/{name}/desktop')
         desktop = f'c:/users/{name}/desktop'
         # changes the path that python uses to find files 
         # on the user's desktop        
@@ -33,7 +32,7 @@ while True:
                ' and last name.')                    
 
 
-files = os.listdir(path = desktop)        
+files = listdir(path = desktop)        
 files = dict(enumerate(files))
 # generates a dictionary that includes all files on the user's desktop
 
@@ -89,7 +88,7 @@ sheets = dict(enumerate(sheets))
 
 
 try:
-    MNC = pd.read_excel(assay, sheet_name = '%MNC (Manual)', header = None)
+    MNC = pd.read_excel(assay, sheet_name = '%MNC', header = None)
 
 except XLRDError:
     
@@ -233,13 +232,13 @@ except XLRDError:
 
             
 try:
-    HDB = pd.read_excel('HDB, ALL.xlsx')
-    HDB = 'HDB, ALL.xls'
+    HDB = pd.read_excel('HDB.xlsx')
+    HDB = 'HDB.xlsx'
     
 except FileNotFoundError:
     try:
-        HDB = pd.read_excel('HDB, ALL.xls')
-        HDB = 'HDB, ALL.xlsx'
+        HDB = pd.read_excel('HDB.xls')
+        HDB = 'HDB.xls'
 
 # HDB will be added to the user's desktop from the ECM. 
 # Therefore, the currently used HDB should have the same name 
